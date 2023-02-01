@@ -154,23 +154,23 @@ def menu():
         print("5. Consulta general")
         print("6. Salir")
         print("-"*36)
-        option = input("Seleccione una opción: ")
-        if option == "1":
-            cliente1 = Cliente()
-            cliente1.guardar()
-        elif option == "2":
-            factura1 = Factura()
-            factura1.guardar_factura()
-        elif option == "3":
-            credito1 = CabCredito()
-            credito1.guardar_credito()
-        elif option == "4":
-            pago1 = Pago()
-            pago1.realizar_pago()
-        elif option == "5":
+        opc = input("Seleccione una opción: ")
+        if opc == "1":
+            clientes1 = Cliente()
+            clientes1.guardar()
+        elif opc == "2":
+            facturas1 = Factura()
+            facturas1.guardar_factura()
+        elif opc == "3":
+            creditos1 = CabCredito()
+            creditos1.guardar_credito()
+        elif opc == "4":
+            pagos1 = Pago()
+            pagos1.realizar_pago()
+        elif opc == "5":
             os.system("cls")
             consulta_general()
-        elif option == "6":
+        elif opc == "6":
             break
         else:
             print("Opción inválida.")
@@ -184,16 +184,16 @@ def consulta_general():
         print("4. Mostrar Pagos")
         print("5. Volver al menu principal")
         print("="*38)
-        option = input("Seleccione una opción: ")
-        if option == "1":
+        opc = input("Seleccione una opción: ")
+        if opc == "1":
             Cliente.mostrarDatos(Cliente)
-        elif option == "2":
+        elif opc == "2":
             Factura.mostrarDatos(Factura)
-        elif option == "3":
+        elif opc == "3":
             CabCredito.mostrarDatos(CabCredito)
-        elif option == "4":
+        elif opc == "4":
             Pago.mostrarDatos(Pago)
-        elif option == "5":
+        elif opc == "5":
             os.system("cls")
             break
         else:
