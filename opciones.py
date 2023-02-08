@@ -5,10 +5,10 @@ import os
 
 class Persona(ABC):
     _idpersona = 0
-    def __init__(self,nombre,estado):
+    def __init__(self):
         Persona._idpersona += 1
-        self.nombre = nombre
-        self.estado = estado
+        self.nombre = input("Ingrese el nombre de la persona: ")
+        self.estado = input("Ingrese el estado de la persona (True/False): ")
     
     @property
     def idpersona(self):
@@ -19,49 +19,35 @@ class Persona(ABC):
         pass
 
 class Cliente(Persona):
-    clientes = []
-
-    def __init__(self, nombre, cedula, estado):
-        super().__init__(nombre, estado)
-        self.idcliente = str(len(Cliente.clientes)+1)
-        self.nombre = nombre
-        self.cedula = cedula
-        self.estado = estado
+    _idcliente = 0
+    def __init__(self):
+        Cliente._idcliente += 1
+        self.nombre = input("Ingrese el nombre del cliente: ")
+        self.cedula = input("Ingrese la cédula del cliente: ")
+        self.estado = input("Ingrese el estado del cliente (True/False): ")
     
-    def validar_nombre(self):
-        return self.nombre.isalpha()
+    @property
+    def idcliente(self):
+        return self._idcliente
     
-    def validar_cedula(self):
-        return self.cedula.isdigit() and len(self.cedula) == 10
-
-    def guardar_en_archivo(self):
-        with open("archivos/clientes.txt", "a") as archivo:
-            archivo.write(f"{self.idcliente},{self.nombre},{self.cedula},{self.estado}\n")
-            
     def mostrarDatos(self):
         with open('archivos/clientes.txt', 'r') as archivo:
             for linea in archivo:
                 print(linea)
-    
-    @classmethod
-    def crear_cliente(cls):
-        nombre = input("Ingrese el nombre: ")
-        cedula = input("Ingrese la cédula: ")
-        estado = input("Ingrese el estado (True/False): ")
-        cliente = cls(nombre, cedula, estado)
-        if cliente.validar_nombre() and cliente.validar_cedula():
-            cliente.guardar_en_archivo()
-            cls.clientes.append(cliente)
-            print("Cliente creado exitosamente.")
-        else:
-            print("Error al crear cliente.")
+
+    def guardar(self):
+        with open("archivos/clientes.txt", "a") as file:
+            file.write(f"{self._idcliente}, {self.nombre}, {self.cedula}, {self.estado}\n")
+        print("Registro ingresado exitosamente")
+        sleep(0.8)
+        os.system("cls")
         
             
 class Factura:
     _idfactura = 0
     def __init__(self):
         Factura._idfactura += 1
-        self.cliente = Cliente.crear_cliente()
+        self.cliente = Cliente()
         self.fecha = datetime.date.today()
         self.total = float(input("Ingrese el total de la factura: $"))
         self.estado = input("Ingrese el estado de la factura (True/False): ")
@@ -170,7 +156,8 @@ def menu():
         print("-"*36)
         opc = input("Seleccione una opción: ")
         if opc == "1":
-            Cliente.crear_cliente()
+            clientes1 = Cliente()
+            clientes1.guardar()
         elif opc == "2":
             facturas1 = Factura()
             facturas1.guardar_factura()
