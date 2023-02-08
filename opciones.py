@@ -61,7 +61,7 @@ class Factura:
     _idfactura = 0
     def __init__(self):
         Factura._idfactura += 1
-        self.cliente = Cliente()
+        self.cliente = Cliente.crear_cliente()
         self.fecha = datetime.date.today()
         self.total = float(input("Ingrese el total de la factura: $"))
         self.estado = input("Ingrese el estado de la factura (True/False): ")
